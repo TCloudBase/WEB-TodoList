@@ -1,0 +1,118 @@
+html{
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: relative;
+    display: flex;
+}
+
+#model {
+    height: calc(100% - 40px);
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 10px;
+    cursor: default;
+}
+
+.bottom-des {
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 100;
+  text-align: center;
+  height: 40px;
+  letter-spacing: 3px;
+}
+
+#todo-list {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+lo {
+    display: flex;
+    min-height: 30px;
+    margin-top: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+input[type="text"] {
+  width: calc(100% - 80px);
+  font-size: 15px;
+  font-weight: 900;
+  padding: 10px;
+  background: #ebeef0;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  height: 45px;
+  float: left;
+}
+
+#file-in {
+  width: 79px;
+  background: #ebeef0;
+  height: 45px;
+  display: inline-block;
+  line-height: 45px;
+  text-align: center;
+  font-size: 15px;
+  color: #565656;
+  border-radius: 0 5px 5px 0;
+  border-left: 1px solid #bcbcbc;
+  vertical-align: middle;
+}
+
+#file-input {
+  display: none;
+}
+
+lo>input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: auto 0;
+}
+
+lo>input[type="text"] {
+    padding: 0 7px;
+    height: 30px;
+    margin: 0 8px;
+    font-weight: 300;
+    border-radius: 0;
+    font-size: 14px;
+}
+
+lo>p {
+    width: calc(100% - 70px);
+    margin: 0;
+    line-height: 30px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+lo>span {
+  width: 40px;
+  font-size: 14px;
+  color: #325bef;
+  line-height: 30px;
+  text-decoration: underline;
+}
+
+delete {
+    display: grid;
+    width: 20px;
+    height: 20px;
+    background: #ff7070;
+    ;
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    font-size: 17px;
+    line-height: 20px;
+    margin: auto 0;
+}

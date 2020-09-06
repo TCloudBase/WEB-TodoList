@@ -1,0 +1,5 @@
+{
+  "envId": "替换自己的云开发ID",
+  "functionRoot": "./functions",
+  "functions": []
+}
