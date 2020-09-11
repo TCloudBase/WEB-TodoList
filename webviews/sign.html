@@ -1,0 +1,116 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://acc.cloudbase.vip/todo/src/todo.js" charset="utf-8"></script>
+  <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.8/tcb.js"></script>
+</head>
+<body>
+  <div id="model">
+    <input id="text-in" type="text" placeholder="写下你的待办事项…">
+    <label id="file-in" for="file-input">上传附件</label>
+    <input id="file-input" type="file" onchange="TODO.filechange(this)">
+    <ul id="todo-list"></ul>
+  </div>
+  <script>
+    let uid = null;
+    const app = tcb.init({
+      env: "tcb-11f17d"
+    })
+    const auth = app.auth({
+      persistence: "local"
+    });
+    const db = app.database();
+    window.onload = function () {
+      sign();
+      TODO.init();
+    }
+    function sign() {
+      auth.anonymousAuthProvider().signIn().then(() => {
+        uid = auth.hasLoginState().user.uid;
+        db.collection('todo').doc(uid).get().then(res => {
+          if (res.data.length == 0) {
+            db.collection('todo').add({
+              _id: uid,
+              list: TODO.todo,
+              time: new Date()
+            }).then(res => {
+              console.log(res);
+              watchtodo();
+            })
+          }
+          else {
+            console.log(res);
+            TODO.todo = res.data[0].list;
+            TODO.todoinit();
+            watchtodo();
+          }
+        });
+        app.callFunction({
+          name:'todo_getNumber'
+        }).then(res=>{
+          document.getElementById('model').innerHTML+=`<p class='bottom-des'>共${res.result}人使用云开发TODO</p>`
+        })
+      })
+    }
+    TODO.itemChange = function (id, type, des) {
+      if (type === 'add') {
+        if (des != null) {
+          app.uploadFile({
+            cloudPath: `todo/${uid}/${TODO.todo[id].file}`,
+            filePath: des
+          }).then((result) => {
+            console.log(result)
+            TODO.todo[id].file = result.fileID
+            updatetodo()
+          });
+        } else {
+          updatetodo()
+        }
+      } else if (type === 'delete') {
+        if (TODO.todo[id].file != null) {
+          app.deleteFile({
+            fileList: [TODO.todo[id].file]
+          }).then((result) => {
+            delete TODO.todo[id]
+            console.log(result)
+            updatetodo()
+          });
+        } else {
+          delete TODO.todo[id]
+          updatetodo()
+        }
+      } else {
+        updatetodo()
+      }
+    }
+    TODO.downLoadfile = function (file) {
+      app.downloadFile({
+        fileID: file
+      })
+    }
+    function updatetodo() {
+      db.collection('todo').doc(uid).update({
+        list: db.command.set(TODO.todo),
+        time: new Date()
+      }).then(res => {
+      }).catch(e => {
+        console.log(e);
+      })
+    }
+    function watchtodo() {
+      db.collection('todo').where({ _id: uid }).watch({
+        onChange: (snapshot) => {
+          if (snapshot.msgType != "INIT_EVENT") {
+            TODO.todo = snapshot.docs[0].list;
+            TODO.todoinit();
+          }
+        },
+        onError: (error) => {
+          alert('远端数据库监听失败！');
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
