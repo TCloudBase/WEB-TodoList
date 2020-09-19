@@ -7,6 +7,9 @@ TodoList应用，是面向零基础同学的快速入门应用。你可以一行
 
 > 此项目适用于零基础用户体验使用，通过一定的模块手段集约了整体编码。如果想要深入学习请掌握js、html、css等编程技术，自主解析模块中的代码（均为入门原生代码）
 
+如果你不想执行以下步骤翻看代码，可以直接点击下方按钮一键部署
+### [![](https://main.qcloudimg.com/raw/67f5a389f1ac6f3b4d04c7256438e44f.svg)](https://console.cloud.tencent.com/tcb/env/index?action=CreateAndDeployCloudBaseProject&appUrl=https%3A%2F%2Fgithub.com%2FTCloudBase%2FWEB-TodoList-framework&appName=TodoList)
+
 ## 一、构建本地化TodoList
 在本地任意地方新建文本文件，在文件中填入如下内容：
 ```js
